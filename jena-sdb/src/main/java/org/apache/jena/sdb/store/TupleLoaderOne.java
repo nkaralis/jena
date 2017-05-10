@@ -18,6 +18,7 @@
 
 package org.apache.jena.sdb.store;
 
+import static org.apache.jena.atlas.lib.StrUtils.strjoin ;
 import static org.apache.jena.sdb.util.StrUtils.sqlList ;
 
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ import java.util.List;
 import org.apache.jena.graph.Node ;
 import org.apache.jena.sdb.core.sqlexpr.SqlConstant ;
 import org.apache.jena.sdb.shared.SDBInternalError ;
+import org.apache.jena.sdb.shared.SDBNotImplemented;
 import org.apache.jena.sdb.sql.RS ;
 import org.apache.jena.sdb.sql.ResultSetJDBC ;
 import org.apache.jena.sdb.sql.SDBConnection ;
@@ -68,7 +70,7 @@ public abstract class TupleLoaderOne extends TupleLoaderBase
         String[] vals = prepareNodes(row) ;
         
         // Load if not present.
-        if ( ! entryExists(vals) )
+        //if ( ! entryExists(vals) )
             loadRow(vals) ;
     }
 
@@ -121,9 +123,8 @@ public abstract class TupleLoaderOne extends TupleLoaderBase
 //        String colNameList = sqlList(getColumnNames()) ;
 //        String sqlStmt = String.format(insertTemplate, getTableName(), colNameList, sqlList(vals)) ;
 //        exec(sqlStmt) ;
-        
-      String insertTemplate = "INSERT INTO %s VALUES\n  (%s)" ;
       
+      String insertTemplate = "INSERT INTO %s VALUES\n  (%s)" ;
       String sqlStmt = String.format(insertTemplate, getTableName(), sqlList(vals)) ;
       exec(sqlStmt) ;
         
@@ -176,9 +177,10 @@ public abstract class TupleLoaderOne extends TupleLoaderBase
             String x = getTableDesc().getColNames().get(i)+"="+vals[i] ;
             rowValues.add(x) ; 
         }
-        return String.join(" AND ", rowValues) ;
+        return strjoin(" AND ", rowValues) ;
     }
     
     abstract public SqlConstant getRefForNode(Node node) throws SQLException ;
     abstract public SqlConstant insertNode(Node node) throws SQLException ;
+    
 }

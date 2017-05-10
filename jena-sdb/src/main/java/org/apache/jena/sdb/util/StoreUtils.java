@@ -88,6 +88,12 @@ public class StoreUtils
     {
         return store.getDatabaseType().equals(DatabaseType.SAP) ;
     }
+    
+    /* MY ADDITION */
+    public static boolean isHive(Store store)
+    {
+        return store.getDatabaseType().equals(DatabaseType.Hive) ;
+    }
 
     public static void load(Store store, String filename)
     {

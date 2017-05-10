@@ -275,7 +275,6 @@ public class StoreFactory
                     public Store create(SDBConnection conn, StoreDesc desc)
                     { return new StoreTriplesNodesIndexSAP(conn, desc, desc.storageType) ; } }) ;
 
-        
         // -- Simple layout
         
         register(Derby, LayoutSimple,
@@ -338,6 +337,14 @@ public class StoreFactory
                     @Override
                     public Store create(SDBConnection conn, StoreDesc desc)
                     { return new StoreSimpleSAP(conn, desc, desc.storageType) ; } }) ;
+        
+        /* MY ADDITION */
+        register(Hive, LayoutSimple,
+                new StoreMaker() {
+                   @Override
+                   public Store create(SDBConnection conn, StoreDesc desc)
+                   { return new StoreSimpleHive(conn, desc) ; }
+                   }) ;
     }
     
     static private void checkRegistry()

@@ -42,6 +42,8 @@ public class DatabaseType extends Symbol implements Named
     public static final DatabaseType Oracle          = new DatabaseType("Oracle") ;
     public static final DatabaseType DB2             = new DatabaseType("DB2") ;
     public static final DatabaseType SAP             = new DatabaseType("sap") ;
+    /* MY ADDITION */
+    public static final DatabaseType Hive            = new DatabaseType("hive") ;
     
     static SymbolRegistry<DatabaseType> registry = new SymbolRegistry<DatabaseType>() ;
     static { init() ; }
@@ -94,6 +96,10 @@ public class DatabaseType extends Symbol implements Named
         register(DB2) ;
         
         register(SAP);
+        
+        /* MY ADDITION */
+        register(Hive) ;
+        registerName("HiveDB", Hive) ;
     }
     
     static public List<String> allNames() { return registry.allNames() ; }

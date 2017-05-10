@@ -125,6 +125,14 @@ public class SDBCompile
             request.DistinctTranslation = true ;
         }
         
+        /* ADDITION */
+        if ( StoreUtils.isHive(store) )
+        {
+            request.LeftJoinTranslation = true ;
+            request.LimitOffsetTranslation = true ;
+            request.DistinctTranslation = true ;
+        }
+        
         QueryCompiler queryCompiler = store.getQueryCompilerFactory().createQueryCompiler(request) ;
         Op op2 = queryCompiler.compile(op) ;
         return op2 ;

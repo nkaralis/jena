@@ -56,6 +56,8 @@ public class JDBC
         driver.put(DatabaseType.Oracle,     "oracle.jdbc.driver.OracleDriver") ;
         driver.put(DatabaseType.DB2,        "com.ibm.db2.jcc.DB2Driver") ;
         driver.put(DatabaseType.SAP,        "com.sap.db.jdbc.Driver") ;
+        /* MY ADDITION */
+        driver.put(DatabaseType.Hive,       "org.apache.hive.jdbc.HiveDriver") ;
         
         jdbcDriverClassMySQL       = driver.get(DatabaseType.MySQL) ;
         jdbcDriverClassMariaDB     = driver.get(DatabaseType.MariaDB) ;
@@ -83,6 +85,9 @@ public class JDBC
     static public void loadDriverDB2() { loadDriver(driver.get(DatabaseType.DB2)); }
     /** Explicitly load the SAP driver */ 
     static public void loadDriverSAP() { loadDriver(driver.get(DatabaseType.SAP)); }
+    /*MY ADDITΙON */
+    /** Explicitly load the Hive driver */ 
+    static public void loadDriverHive() { loadDriver(driver.get(DatabaseType.Hive)); }
     
     static public void loadDriver(String className) { loadClass(className) ; }
     
@@ -221,6 +226,13 @@ public class JDBC
         {
         	String s = String.format("jdbc:%s://%s:3%s15", type, host, dbName) ;
         	return s ;
+        }
+        
+        /* MY ADDITION */
+        if ( type.equals("hive") )
+        {
+        	String s = String.format("jdbc:%s2://%s:10000/%s", type, host, dbName) ;
+            return s ;
         }
 
         if ( type.equals("none") )
